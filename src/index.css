@@ -6,6 +6,10 @@
   @apply bg-background text-text font-inter;
 }
 
+#root {
+  @apply h-screen bg-gray-200;
+}
+
 @theme {
   --color-primary: #2563eb;
   --color-secondary: #60a5fa;
