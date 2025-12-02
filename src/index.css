@@ -3,11 +3,7 @@
 @import "tailwindcss";
 
 :root {
-  @apply bg-background text-text font-inter;
-}
-
-#root {
-  @apply h-screen bg-gray-200;
+  @apply text-text font-inter h-screen bg-gray-200;
 }
 
 @theme {
