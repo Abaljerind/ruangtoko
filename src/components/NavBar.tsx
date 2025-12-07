@@ -1,4 +1,6 @@
+import { FiShoppingCart } from "react-icons/fi";
 import Logo from "../assets/logo-light-mode.png";
+import { FaRegUser } from "react-icons/fa";
 
 const NavBar = () => {
   return (
@@ -36,23 +38,17 @@ const NavBar = () => {
 
         {/* Logo + NavItem */}
 
-        {/* Sign In & Sign Up || Icon Cart & Sign Out */}
+        {/* Icon Cart & Icon User */}
         <div className="mt-1.5 flex items-center gap-4 md:gap-8">
-          <button className="bg-primary text-background rounded-full px-3 py-2 text-sm shadow-md md:px-4 md:text-base">
-            Sign In
-          </button>
-
-          {/* Cart Icon & Sign Out Icon ### TUNGGU FITUR LOGIN ### */}
-          {/* <div className="relative p-2.5">
+          <div className="relative p-2.5">
             <FiShoppingCart className="size-6 md:size-7" />
             <div className="bg-primary absolute top-0.5 -right-1 flex size-5 items-center justify-center rounded-full md:top-0 md:-right-2 md:size-6">
               <span className="text-xs font-bold text-white md:text-sm">3</span>
             </div>
           </div>
-          <VscSignOut className="size-6 md:size-7" /> */}
-          {/* ./ Cart Icon & Sign Out Icon */}
+          <FaRegUser className="size-6 md:size-7" />
         </div>
-        {/* ./ Sign In & Sign Up || Icon Cart & Sign Out */}
+        {/* ./ Icon Cart & Icon User */}
       </nav>
       {/* Desktop NavBar */}
     </>
