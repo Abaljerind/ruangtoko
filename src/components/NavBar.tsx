@@ -28,7 +28,7 @@ const NavBar = () => {
 
         {/* Mobile - NavItem | Bottom Section */}
         <div className="relative md:hidden">
-          <ul className="fixed right-1/2 bottom-0 flex w-full translate-x-1/2 items-center justify-evenly gap-4 py-4">
+          <ul className="fixed right-1/2 bottom-0 flex w-full translate-x-1/2 items-center justify-evenly gap-4 border-t border-gray-400 py-4 md:border-0 md:border-none">
             <li>Home</li>
             <li>Products</li>
             <li>Order History</li>
