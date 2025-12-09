@@ -16,3 +16,9 @@
   --font-poppins: "Poppins", sans-serif;
   --font-inter: "Inter", sans-serif;
 }
+
+@layer components {
+  .flex-column {
+    @apply flex flex-col items-center gap-5;
+  }
+}
