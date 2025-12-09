@@ -11,16 +11,28 @@ const NavBar = () => {
         <div className="flex items-center gap-10">
           {/* Logo */}
           <div>
-            <img src={Logo} alt="RuangToko Logo" width={160} height={80} />
+            <img
+              src={Logo}
+              alt="RuangToko Logo"
+              width={160}
+              height={80}
+              className="cursor-pointer"
+            />
           </div>
           {/* ./ Logo */}
 
           {/* Desktop NavItem */}
           <div className="mt-1.5 hidden md:block">
             <ul className="flex items-center justify-evenly gap-8">
-              <li className="hover:text-primary">Home</li>
-              <li className="hover:text-primary">Products</li>
-              <li className="hover:text-primary">Order History</li>
+              <li className="hover:text-secondary">
+                <a href="#">Home</a>
+              </li>
+              <li className="hover:text-secondary">
+                <a href="#">Products</a>
+              </li>
+              <li className="hover:text-secondary">
+                <a href="#">Order History</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -41,12 +53,14 @@ const NavBar = () => {
         {/* Icon Cart & Icon User */}
         <div className="mt-1.5 flex items-center gap-4 md:gap-8">
           <div className="relative p-2.5">
-            <FiShoppingCart className="size-6 md:size-7" />
+            <a href="#">
+              <FiShoppingCart className="size-6 md:size-7" />
+            </a>
             <div className="bg-primary absolute top-0.5 -right-1 flex size-5 items-center justify-center rounded-full md:top-0 md:-right-2 md:size-6">
               <span className="text-xs font-bold text-white md:text-sm">3</span>
             </div>
           </div>
-          <FaRegUser className="size-6 md:size-7" />
+          <FaRegUser className="size-6 cursor-pointer md:size-7" />
         </div>
         {/* ./ Icon Cart & Icon User */}
       </nav>
