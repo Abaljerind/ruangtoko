@@ -5,7 +5,7 @@ import Copyrights from "./Copyrights";
 const Footer = () => {
   return (
     <>
-      <footer className="flex-column border-t border-b border-gray-400 py-4 text-center lg:flex-row lg:px-24 lg:py-8 lg:text-start xl:gap-20">
+      <footer className="flex-column border-t border-b border-gray-400/40 py-4 text-center lg:flex-row lg:px-24 lg:py-8 lg:text-start xl:gap-20">
         {/* Left Side */}
         <div className="flex-column lg:basis-1/2 lg:flex-row lg:items-start lg:gap-4">
           {/* Logo & motto */}

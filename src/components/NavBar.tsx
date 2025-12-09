@@ -6,7 +6,7 @@ const NavBar = () => {
   return (
     <>
       {/* Desktop NavBar */}
-      <nav className="flex items-center justify-between border-b border-gray-400 p-2 pr-3 md:p-4 lg:px-24">
+      <nav className="flex items-center justify-between border-b border-gray-400/40 p-2 pr-3 md:p-4 lg:px-24">
         {/* Logo + NavItem */}
         <div className="flex items-center gap-10">
           {/* Logo */}
