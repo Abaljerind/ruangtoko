@@ -17,7 +17,7 @@ const Footer = () => {
               height={80}
               className="mx-auto cursor-pointer lg:mx-0"
             />
-            <p className="font-poppins text-sm font-medium text-gray-500">
+            <p className="font-poppins text-sm font-medium">
               Your one-stop shop for everything you need.
             </p>
           </div>
