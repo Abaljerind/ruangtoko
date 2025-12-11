@@ -1,12 +1,41 @@
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
 import HeroImage from "./assets/hero-image-furniture.webp";
+import type { ProductType } from "./types/product-interface";
+import ProductCard from "./components/ProductCard";
 
 function App() {
+  const products: ProductType[] = [
+    {
+      title: "Modern armchair",
+      rating: "4.5",
+      price: "$299.00",
+      image: HeroImage,
+    },
+    {
+      title: "Wireless Headphones",
+      rating: "5.0",
+      price: "$149.99",
+      image: HeroImage,
+    },
+    {
+      title: "Ceramic Vase Set",
+      rating: "4.7",
+      price: "$75.00",
+      image: HeroImage,
+    },
+    {
+      title: "Smart Coffee Maker",
+      rating: "4.6",
+      price: "$89.50",
+      image: HeroImage,
+    },
+  ];
+
   return (
     <>
       <NavBar />
-      <main className="p-6 lg:px-24">
+      <main className="p-4 lg:px-24">
         {/* Hero Section */}
         <section className="flex flex-col gap-8 rounded-2xl bg-linear-to-r/hsl from-blue-500 to-sky-400 p-6 md:flex-row md:gap-0 lg:gap-20 lg:rounded-3xl lg:px-12">
           {/* Text & description */}
@@ -35,7 +64,21 @@ function App() {
         {/* ./ Hero Section */}
 
         {/* Popular Products */}
-        <div className=""></div>
+        <section className="flex flex-col items-center gap-8 py-12 md:items-start">
+          <h2 className="font-poppins text-xl font-semibold">
+            Popular Products
+          </h2>
+
+          {/* Products List */}
+          <div className="grid gap-8 md:grid-cols-3 lg:grid-cols-4">
+            {/* Product Cards */}
+            {products.map((product: ProductType, index: number) => {
+              return <ProductCard product={product} key={index + 1} />;
+            })}
+            {/* Product Cards */}
+          </div>
+          {/* ./ Products List */}
+        </section>
         {/* ./ Popular Products */}
       </main>
       <Footer />
