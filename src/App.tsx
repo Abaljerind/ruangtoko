@@ -39,7 +39,7 @@ function App() {
         {/* Hero Section */}
         <section className="flex flex-col gap-8 rounded-2xl bg-linear-to-r/hsl from-blue-500 to-sky-400 p-6 md:flex-row md:gap-0 lg:gap-20 lg:rounded-3xl lg:px-12">
           {/* Text & description */}
-          <div className="space-y-2.5 md:basis-1/2 md:space-x-2.5 lg:space-y-5">
+          <div className="font-poppins space-y-2.5 md:basis-1/2 md:space-x-2.5 lg:space-y-5">
             <h1 className="text-3xl font-bold text-pretty text-white lg:text-4xl xl:text-6xl">
               Discover Your Next Favorite
             </h1>
@@ -47,7 +47,7 @@ function App() {
               Explore our curated collection of high-quality products, designed
               to fit your lifestyle and inspire your everyday.
             </p>
-            <button className="text-primary cursor-pointer rounded-lg bg-white px-4 py-2.5 text-sm font-semibold lg:rounded-xl">
+            <button className="text-primary cursor-pointer rounded-lg bg-white px-4 py-2.5 text-sm font-semibold hover:bg-gray-100 lg:rounded-xl">
               Shop Now
             </button>
           </div>
