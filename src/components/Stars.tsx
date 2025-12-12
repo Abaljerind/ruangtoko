@@ -1,13 +1,13 @@
-import { CiStar } from "react-icons/ci";
+import { PiStarFill } from "react-icons/pi";
 
 const Stars = () => {
   return (
     <div className="flex items-center">
-      <CiStar className="size-5 text-yellow-500" />
-      <CiStar className="size-5 text-yellow-500" />
-      <CiStar className="size-5 text-yellow-500" />
-      <CiStar className="size-5 text-yellow-500" />
-      <CiStar className="size-5 text-yellow-500" />
+      <PiStarFill className="size-5 text-yellow-500" />
+      <PiStarFill className="size-5 text-yellow-500" />
+      <PiStarFill className="size-5 text-yellow-500" />
+      <PiStarFill className="size-5 text-yellow-500" />
+      <PiStarFill className="size-5 text-gray-400" />
     </div>
   );
 };
