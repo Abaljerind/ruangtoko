@@ -5,6 +5,7 @@ import type { ProductType } from "./types/product-interface";
 import ProductCard from "./components/ProductCard";
 import { RiShieldCheckLine, RiTruckLine } from "react-icons/ri";
 import { MdSupportAgent } from "react-icons/md";
+import { useState } from "react";
 
 function App() {
   const products: ProductType[] = [
@@ -33,6 +34,20 @@ function App() {
       image: HeroImage,
     },
   ];
+
+  const [isSignUp, setIsSignUp] = useState<string>("");
+
+  const handleEmailSignUp = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsSignUp(e.target.value);
+  };
+
+  const handleSubmitEmailSignUp = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (isSignUp.length === 0) return;
+
+    alert("Terima kasih sudah berlangganan newsletter kami.");
+    setIsSignUp("");
+  };
 
   return (
     <>
@@ -129,6 +144,36 @@ function App() {
           {/* ./ Feature Card 3 */}
         </section>
         {/* ./ Features */}
+
+        {/* Newsletter Signup */}
+        <section className="bg-secondary/25 rounded-2xl py-12">
+          <div className="mx-auto w-5/6 space-y-2.5 text-center">
+            <h2 className="font-poppins text-xl font-bold">
+              Get Exclusive Deals
+            </h2>
+            <p className="mx-auto text-pretty md:w-3/4 xl:w-2/5">
+              Subscribe to our newsletter to get updates on our latest products
+              and promotions.
+            </p>
+            <div className="mt-4 flex items-center justify-center">
+              <input
+                type="email"
+                value={isSignUp}
+                className="w-3/4 rounded-l-xl bg-white px-3 py-2 invalid:border-pink-500 invalid:text-pink-600 focus:border-sky-500 focus:outline focus:outline-sky-500 focus:invalid:border-pink-500 focus:invalid:outline-pink-500 md:w-1/2 lg:w-2/5"
+                placeholder="Enter your email"
+                onChange={handleEmailSignUp}
+              />
+              <button
+                onClick={handleSubmitEmailSignUp}
+                type="submit"
+                className="bg-accent cursor-pointer rounded-r-xl px-3 py-2 text-white"
+              >
+                Subscribe
+              </button>
+            </div>
+          </div>
+        </section>
+        {/* ./ Newsletter Signup */}
       </main>
       <Footer />
     </>
