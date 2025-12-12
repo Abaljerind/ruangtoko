@@ -24,13 +24,13 @@ const NavBar = () => {
           {/* Desktop NavItem */}
           <div className="mt-1.5 hidden md:block">
             <ul className="flex items-center justify-evenly gap-8">
-              <li className="hover:text-secondary">
+              <li className="hover:text-secondary font-medium">
                 <a href="#">Home</a>
               </li>
-              <li className="hover:text-secondary">
+              <li className="hover:text-secondary font-medium">
                 <a href="#">Products</a>
               </li>
-              <li className="hover:text-secondary">
+              <li className="hover:text-secondary font-medium">
                 <a href="#">Order History</a>
               </li>
             </ul>
@@ -40,7 +40,7 @@ const NavBar = () => {
 
         {/* Mobile - NavItem | Bottom Section */}
         <div className="relative md:hidden">
-          <ul className="bg-primary fixed right-1/2 bottom-0 flex w-full translate-x-1/2 items-center justify-evenly gap-4 border-t border-gray-400/40 py-4 text-white md:border-0 md:border-none">
+          <ul className="bg-primary fixed right-1/2 bottom-0 flex w-full translate-x-1/2 items-center justify-evenly gap-4 border-t border-gray-400/40 py-4 font-medium text-white md:border-0 md:border-none">
             <li>Home</li>
             <li>Products</li>
             <li>Order History</li>
