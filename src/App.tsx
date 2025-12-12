@@ -17,7 +17,6 @@ function App() {
       .then((data) => setProductsList(data.products));
   }, []);
 
-  console.log(productsList);
   // function untuk mengambil 4 data pertama dari productsList
   const popularProducts = productsList.slice(0, 4);
 
