@@ -3,6 +3,8 @@ import NavBar from "./components/NavBar";
 import HeroImage from "./assets/hero-image-furniture.webp";
 import type { ProductType } from "./types/product-interface";
 import ProductCard from "./components/ProductCard";
+import { RiShieldCheckLine, RiTruckLine } from "react-icons/ri";
+import { MdSupportAgent } from "react-icons/md";
 
 function App() {
   const products: ProductType[] = [
@@ -80,6 +82,53 @@ function App() {
           {/* ./ Products List */}
         </section>
         {/* ./ Popular Products */}
+
+        {/* Features */}
+        <section className="grid items-center gap-4 py-12 md:grid-cols-2 xl:grid-cols-3">
+          {/* Feature Card 1 */}
+          <div className="features-card-wrapper">
+            {/* Feature Icon */}
+            <RiTruckLine className="features-card-icon" />
+
+            {/* Feature Description */}
+            <div className="space-y-0.5">
+              <h4 className="font-bold">Free Shipping</h4>
+              <p className="text-sm tracking-wide">On orders over $50</p>
+            </div>
+          </div>
+          {/* ./ Feature Card 1 */}
+
+          {/* Feature Card 2 */}
+          <div className="features-card-wrapper">
+            {/* Feature Icon */}
+            <RiShieldCheckLine className="features-card-icon" />
+
+            {/* Feature Description */}
+            <div className="space-y-0.5">
+              <h4 className="font-bold">Secure Payment</h4>
+              <p className="text-sm tracking-wide">
+                Your payment is 100% secure
+              </p>
+            </div>
+          </div>
+          {/* ./ Feature Card 2 */}
+
+          {/* Feature Card 3 */}
+          <div className="features-card-wrapper">
+            {/* Feature Icon */}
+            <MdSupportAgent className="features-card-icon" />
+
+            {/* Feature Description */}
+            <div className="space-y-0.5">
+              <h4 className="font-bold">24/7 Support</h4>
+              <p className="text-sm tracking-wide">
+                Contact us anytime you need
+              </p>
+            </div>
+          </div>
+          {/* ./ Feature Card 3 */}
+        </section>
+        {/* ./ Features */}
       </main>
       <Footer />
     </>
