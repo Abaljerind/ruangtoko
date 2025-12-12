@@ -5,37 +5,21 @@ import type { ProductType } from "./types/product-interface";
 import ProductCard from "./components/ProductCard";
 import { RiShieldCheckLine, RiTruckLine } from "react-icons/ri";
 import { MdSupportAgent } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
-  const products: ProductType[] = [
-    {
-      title: "Modern armchair",
-      rating: "4.5",
-      price: "$299.00",
-      image: HeroImage,
-    },
-    {
-      title: "Wireless Headphones",
-      rating: "5.0",
-      price: "$149.99",
-      image: HeroImage,
-    },
-    {
-      title: "Ceramic Vase Set",
-      rating: "4.7",
-      price: "$75.00",
-      image: HeroImage,
-    },
-    {
-      title: "Smart Coffee Maker",
-      rating: "4.6",
-      price: "$89.50",
-      image: HeroImage,
-    },
-  ];
-
   const [isSignUp, setIsSignUp] = useState<string>("");
+  const [productsList, setProductsList] = useState<ProductType[]>([]);
+
+  useEffect(() => {
+    fetch("https://dummyjson.com/products")
+      .then((res) => res.json())
+      .then((data) => setProductsList(data.products));
+  }, []);
+
+  console.log(productsList);
+  // function untuk mengambil 4 data pertama dari productsList
+  const popularProducts = productsList.slice(0, 4);
 
   const handleEmailSignUp = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsSignUp(e.target.value);
@@ -81,15 +65,15 @@ function App() {
         {/* ./ Hero Section */}
 
         {/* Popular Products */}
-        <section className="flex flex-col items-center gap-8 py-12 md:items-start">
-          <h2 className="font-poppins text-xl font-semibold">
+        <section className="flex flex-col gap-8 py-12">
+          <h2 className="font-poppins place-self-start text-xl font-semibold">
             Popular Products
           </h2>
 
           {/* Products List */}
-          <div className="grid gap-8 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-6">
             {/* Product Cards */}
-            {products.map((product: ProductType, index: number) => {
+            {popularProducts.map((product: ProductType, index: number) => {
               return <ProductCard product={product} key={index + 1} />;
             })}
             {/* Product Cards */}
