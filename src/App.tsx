@@ -12,9 +12,24 @@ function App() {
   const [productsList, setProductsList] = useState<ProductType[]>([]);
 
   useEffect(() => {
-    fetch("https://dummyjson.com/products")
-      .then((res) => res.json())
-      .then((data) => setProductsList(data.products));
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch("https://dummyjson.com/products");
+
+        // check if fetch success or not
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.statusText}`);
+        }
+        const result = await response.json();
+        setProductsList(result.products);
+      } catch (error: any) {
+        console.log("Fetch Error: ", error);
+      } finally {
+        console.log("Fetch Data Selesai.");
+      }
+    };
+
+    fetchProduct();
   }, []);
 
   // function untuk mengambil 4 data pertama dari productsList
