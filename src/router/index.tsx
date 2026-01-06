@@ -1,5 +1,5 @@
 import { createBrowserRouter, type RouteObject } from "react-router-dom";
-import RootLayout from "../../RootLayout";
+import RootLayout from "../components/RootLayout";
 import Homepage from "../pages/Homepage";
 import ProductListPage from "../pages/ProductListPage";
 import OrderHistoryPage from "../pages/OrderHistoryPage";
