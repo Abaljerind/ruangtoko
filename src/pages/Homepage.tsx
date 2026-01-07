@@ -100,7 +100,7 @@ const Homepage = () => {
         {/* ./ Popular Products */}
 
         {/* Features */}
-        <section className="grid items-center gap-4 py-12 md:grid-cols-2 xl:grid-cols-3">
+        <section className="grid items-center gap-4 pb-12 md:grid-cols-2 xl:grid-cols-3">
           {/* Feature Card 1 */}
           <div className="features-card-wrapper">
             {/* Feature Icon */}
