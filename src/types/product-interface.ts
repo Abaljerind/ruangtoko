@@ -4,3 +4,10 @@ export interface ProductType {
   price: string;
   images: string;
 }
+
+export interface ProductResponse {
+  limit: number;
+  products: ProductType[];
+  skip: number;
+  total: number;
+}
