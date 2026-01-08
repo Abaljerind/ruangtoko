@@ -2,16 +2,17 @@ import HeroImage from "../assets/hero-image-furniture.webp";
 import { RiShieldCheckLine, RiTruckLine } from "react-icons/ri";
 import { MdSupportAgent } from "react-icons/md";
 import { useState } from "react";
-import type { ProductResponse, ProductType } from "../types/product-interface";
+import type { ProductType } from "../types/product-interface";
 import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
 import { useLoaderData } from "react-router-dom";
+import { homepageLoader } from "../../apis/homepageLoader";
 
 const Homepage = () => {
   const [isSignUp, setIsSignUp] = useState<string>("");
 
   // buat variable dengan nama alias productsList menggunakan object destructuring yang datanya dari loader
-  const { products: productsList } = useLoaderData() as ProductResponse;
+  const { products: productsList } = useLoaderData<typeof homepageLoader>();
 
   // function untuk mengambil 4 data pertama dari productsList alias dari products
   const popularProducts = productsList.slice(0, 4);
