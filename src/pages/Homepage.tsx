@@ -1,40 +1,19 @@
 import HeroImage from "../assets/hero-image-furniture.webp";
 import { RiShieldCheckLine, RiTruckLine } from "react-icons/ri";
 import { MdSupportAgent } from "react-icons/md";
-import { useEffect, useState } from "react";
-import ErrorPage from "../pages/ErrorPage";
-import type { ProductType } from "../types/product-interface";
+import { useState } from "react";
+import type { ProductResponse, ProductType } from "../types/product-interface";
 import ProductCard from "../components/ProductCard";
 import Footer from "../components/Footer";
+import { useLoaderData } from "react-router-dom";
 
 const Homepage = () => {
   const [isSignUp, setIsSignUp] = useState<string>("");
-  const [productsList, setProductsList] = useState<ProductType[]>([]);
-  const [isError, setIsError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await fetch("https://dummyjson.com/products");
+  // buat variable dengan nama alias productsList menggunakan object destructuring yang datanya dari loader
+  const { products: productsList } = useLoaderData() as ProductResponse;
 
-        // check if fetch success or not
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.statusText}`);
-        }
-        const result = await response.json();
-        setProductsList(result.products);
-      } catch (error: any) {
-        setIsError(error);
-        console.log("Fetch Error: ", error);
-      } finally {
-        console.log("Fetch Data Selesai.");
-      }
-    };
-
-    fetchProduct();
-  }, []);
-
-  // function untuk mengambil 4 data pertama dari productsList
+  // function untuk mengambil 4 data pertama dari productsList alias dari products
   const popularProducts = productsList.slice(0, 4);
 
   const handleEmailSignUp = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,8 +27,6 @@ const Homepage = () => {
     alert("Terima kasih sudah berlangganan newsletter kami.");
     setIsSignUp("");
   };
-
-  if (isError) return <ErrorPage />;
 
   return (
     <>
