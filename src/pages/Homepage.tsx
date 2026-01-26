@@ -31,7 +31,7 @@ const Homepage = () => {
 
   return (
     <>
-      <section className="p-4 lg:px-24 lg:py-10">
+      <section className="">
         {/* Hero Section */}
         <section className="flex flex-col gap-8 rounded-2xl bg-linear-to-r/hsl from-blue-500 to-sky-400 p-6 md:flex-row md:gap-0 lg:gap-20 lg:rounded-3xl lg:px-12">
           {/* Text & description */}

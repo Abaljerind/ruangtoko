@@ -11,7 +11,7 @@ const ProductListPage = () => {
   }
 
   return (
-    <section className="p-4 lg:px-24 lg:py-10">
+    <section className="">
       {/* filters */}
       <span
         onClick={handleOpenFilters}
