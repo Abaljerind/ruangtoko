@@ -1,4 +1,5 @@
 import type { ProductType } from "../types/product-interface";
+import Button from "./Button";
 import Stars from "./Stars";
 
 type Props = {
@@ -25,9 +26,7 @@ const ProductCard = ({ product }: Props) => {
             <Stars /> {product.rating}
           </div>
           <p className="font-semibold text-gray-700">{product.price}</p>
-          <button className="bg-primary w-full cursor-pointer rounded-lg py-2 text-center text-white hover:bg-blue-700">
-            Add to Cart
-          </button>
+          <Button text="Add to Cart" variant="card" />
         </div>
       </div>
     </div>
