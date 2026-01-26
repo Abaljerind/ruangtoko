@@ -6,6 +6,7 @@ import type { ProductType } from "../types/product-interface";
 import ProductCard from "../components/ProductCard";
 import { useLoaderData } from "react-router-dom";
 import { homepageLoader } from "../../apis/homepageLoader";
+import Button from "../components/Button";
 
 const Homepage = () => {
   const [isSignUp, setIsSignUp] = useState<string>("");
@@ -42,9 +43,7 @@ const Homepage = () => {
               Explore our curated collection of high-quality products, designed
               to fit your lifestyle and inspire your everyday.
             </p>
-            <button className="text-primary cursor-pointer rounded-lg bg-white px-4 py-2.5 text-sm font-semibold hover:bg-gray-100 lg:rounded-xl">
-              Shop Now
-            </button>
+            <Button text="Shop Now" variant="primary" />
           </div>
           {/* ./ Text & description */}
 
