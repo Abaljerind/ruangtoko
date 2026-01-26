@@ -6,6 +6,7 @@ export interface ProductType {
   brand: string;
   category: string;
   reviews: [];
+  description: string;
 }
 
 export interface ProductResponse {
