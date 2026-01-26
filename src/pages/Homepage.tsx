@@ -4,7 +4,6 @@ import { MdSupportAgent } from "react-icons/md";
 import { useState } from "react";
 import type { ProductType } from "../types/product-interface";
 import ProductCard from "../components/ProductCard";
-import Footer from "../components/Footer";
 import { useLoaderData } from "react-router-dom";
 import { homepageLoader } from "../../apis/homepageLoader";
 
@@ -154,7 +153,6 @@ const Homepage = () => {
         </section>
         {/* ./ Newsletter Signup */}
       </section>
-      <Footer />
     </>
   );
 };
