@@ -1,6 +1,7 @@
+import { LiaCartPlusSolid } from "react-icons/lia";
 import type { ProductType } from "../types/product-interface";
+import { PiStarFill } from "react-icons/pi";
 import Button from "./Button";
-import Stars from "./Stars";
 
 type Props = {
   product: ProductType;
@@ -17,16 +18,30 @@ const ProductCard = ({ product }: Props) => {
         />
       </div>
 
-      <div className="p-4">
-        <p className="min-h-10 font-medium capitalize md:mb-1.5 xl:mb-0">
+      <div className="space-y-3 p-4">
+        <p className="min-h-6 text-sm font-semibold capitalize md:mb-1.5 xl:mb-0">
           {product.title}
         </p>
+        <p className="line-clamp-2 text-sm text-gray-400">
+          {product.description}
+        </p>
         <div className="space-y-2">
-          <div className="flex items-center gap-1.5">
-            <Stars /> {product.rating}
+          <div className="flex items-center gap-1.5 text-sm text-gray-600">
+            <PiStarFill className="size-5 text-yellow-500" />
+            <span className="font-medium">{product.rating}</span>{" "}
+            <span className="text-gray-400">
+              ({product.reviews.length} reviews)
+            </span>
           </div>
-          <p className="font-semibold text-gray-700">{product.price}</p>
-          <Button text="Add to Cart" variant="card" />
+          <div className="flex items-center justify-between">
+            <p className="text-lg font-bold text-gray-900">${product.price}</p>
+            <Button
+              text={
+                <LiaCartPlusSolid className="size-7 group-hover:text-white" />
+              }
+              variant="cardIcon"
+            />
+          </div>
         </div>
       </div>
     </div>
