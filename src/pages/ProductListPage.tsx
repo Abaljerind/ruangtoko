@@ -1,6 +1,7 @@
 import { FaFilter } from "react-icons/fa";
 import Stars from "../components/Stars";
 import { useState } from "react";
+import Button from "../components/Button";
 
 const ProductListPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -48,7 +49,7 @@ const ProductListPage = () => {
           <div className="space-y-2 rounded-md bg-white p-4 shadow-sm">
             <h3 className="">Price Range</h3>
             <div className="">
-              <input type="range" className="w-full" />
+              <input type="range" step={5} className="w-full" />
               <div className="flex items-center justify-between">
                 <p className="">$0</p>
                 <p className="">$3000</p>
@@ -69,12 +70,8 @@ const ProductListPage = () => {
 
           {/* apply filters */}
           <div className="grid gap-2">
-            <button className="bg-primary cursor-pointer rounded-lg py-3 font-semibold text-white shadow-md active:bg-blue-500">
-              Apply Filters
-            </button>
-            <button className="text-text cursor-pointer rounded-lg bg-gray-300 py-3 font-semibold shadow-md active:bg-blue-500">
-              Clear All
-            </button>
+            <Button text="Apply Filters" variant="secondary" />
+            <Button text="Clear All" variant="clear" />
           </div>
           {/* ./ apply filters */}
         </section>
