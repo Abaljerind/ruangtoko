@@ -5,10 +5,29 @@ import Button from "../components/Button";
 
 const ProductListPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectCategory, setSelectCategory] = useState<string[]>([]);
 
   function handleOpenFilters() {
     setIsOpen(!isOpen);
   }
+
+  /*
+  Todo:
+  ? ubah category jadi menggunakan map
+  ? buat filter jadi dinamis, untuk sementara data diambil dengan useEffect dan di tampilkan di console log
+  ? berikan style untuk filter untuk lebar desktop
+   */
+
+  const handleCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target;
+    if (!selectCategory.includes(target.name)) {
+      setSelectCategory((prevState) => [...prevState, target.name]);
+    } else {
+      setSelectCategory((prevState) => {
+        return prevState.filter((prev) => prev !== target.name);
+      });
+    }
+  };
 
   return (
     <section className="">
@@ -26,19 +45,43 @@ const ProductListPage = () => {
             <h3 className="">Category</h3>
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <input type="checkbox" checked className="size-3.5" />
+                <input
+                  type="checkbox"
+                  name="laptops"
+                  onChange={handleCategory}
+                  checked={selectCategory.includes("laptops")}
+                  className="size-3.5"
+                />
                 <p className="">Laptops</p>
               </div>
               <div className="flex items-center gap-2">
-                <input type="checkbox" className="size-3.5" />
+                <input
+                  type="checkbox"
+                  name="smartphones"
+                  onChange={handleCategory}
+                  checked={selectCategory.includes("smartphones")}
+                  className="size-3.5"
+                />
                 <p className="">Smartphones</p>
               </div>
               <div className="flex items-center gap-2">
-                <input type="checkbox" className="size-3.5" />
+                <input
+                  type="checkbox"
+                  onChange={handleCategory}
+                  checked={selectCategory.includes("headphones")}
+                  name="headphones"
+                  className="size-3.5"
+                />
                 <p className="">Headphones</p>
               </div>
               <div className="flex items-center gap-2">
-                <input type="checkbox" className="size-3.5" />
+                <input
+                  type="checkbox"
+                  name="accessories"
+                  onChange={handleCategory}
+                  checked={selectCategory.includes("accessories")}
+                  className="size-3.5"
+                />
                 <p className="">Accessories</p>
               </div>
             </div>
