@@ -7,6 +7,7 @@ const ProductListPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectCategory, setSelectCategory] = useState<string[]>([]);
   const [selectRange, setSelectRange] = useState<number>(1750);
+  const [selectRating, setSelectRating] = useState<number>(0);
 
   function handleOpenFilters() {
     setIsOpen(!isOpen);
@@ -119,9 +120,12 @@ const ProductListPage = () => {
           {/* rating */}
           <div className="space-y-2 rounded-md bg-white p-4 shadow-sm">
             <h3 className="">Rating</h3>
-            <div className="flex items-center gap-2">
-              <Stars />
-              <p className="">4 & up</p>
+            <div className="flex items-center gap-4">
+              <Stars
+                rating={selectRating}
+                onSelect={(value) => setSelectRating(value)}
+              />
+              <p className="flex items-center gap-2">{selectRating} Stars</p>
             </div>
           </div>
           {/* ./ rating */}
