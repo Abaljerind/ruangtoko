@@ -6,6 +6,7 @@ import Button from "../components/Button";
 const ProductListPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectCategory, setSelectCategory] = useState<string[]>([]);
+  const [selectRange, setSelectRange] = useState<number>(1750);
 
   function handleOpenFilters() {
     setIsOpen(!isOpen);
@@ -27,6 +28,11 @@ const ProductListPage = () => {
         return prevState.filter((prev) => prev !== target.name);
       });
     }
+  };
+
+  const handleRange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSelectRange(+value);
   };
 
   return (
@@ -92,9 +98,18 @@ const ProductListPage = () => {
           <div className="space-y-2 rounded-md bg-white p-4 shadow-sm">
             <h3 className="">Price Range</h3>
             <div className="">
-              <input type="range" step={5} className="w-full" />
+              <input
+                onChange={handleRange}
+                value={selectRange}
+                type="range"
+                step={250}
+                max={3000}
+                min={500}
+                className="w-full"
+              />
               <div className="flex items-center justify-between">
-                <p className="">$0</p>
+                <p className="">$500</p>
+                <p className="">${selectRange}</p>
                 <p className="">$3000</p>
               </div>
             </div>
