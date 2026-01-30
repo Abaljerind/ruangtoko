@@ -3,9 +3,10 @@ type Variant = "primary" | "secondary" | "card" | "cardIcon" | "clear";
 type Props = {
   text: string | React.ReactNode;
   variant?: Variant;
+  onClick?: () => void;
 };
 
-const Button = ({ text, variant = "primary" }: Props) => {
+const Button = ({ text, variant = "primary", onClick }: Props) => {
   const baseStyle: string =
     "cursor-pointer group rounded-lg text-center transition font-semibold text-sm shadow-md lg:rounded-xl";
 
@@ -18,7 +19,9 @@ const Button = ({ text, variant = "primary" }: Props) => {
   };
 
   return (
-    <button className={`${baseStyle} ${variants[variant]}`}>{text}</button>
+    <button onClick={onClick} className={`${baseStyle} ${variants[variant]}`}>
+      {text}
+    </button>
   );
 };
 
