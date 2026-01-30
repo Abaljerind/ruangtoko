@@ -7,6 +7,7 @@ import CartPage from "../pages/CartPage";
 import ErrorPage from "../pages/ErrorPage";
 
 import { homepageLoader as homeLoader } from "../../apis/homepageLoader";
+import { productListPageLoader as ProductListLoader } from "../../apis/productListPageLoader";
 
 const routes: RouteObject[] = [
   {
@@ -22,6 +23,7 @@ const routes: RouteObject[] = [
       {
         path: "/products",
         element: <ProductListPage />,
+        loader: ProductListLoader,
       },
       {
         path: "/order",
