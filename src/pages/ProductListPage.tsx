@@ -1,13 +1,29 @@
-import { FaFilter } from "react-icons/fa";
 import Stars from "../components/Stars";
-import { useState } from "react";
 import Button from "../components/Button";
+import ProductCard from "../components/ProductCard";
+
+import { FaFilter } from "react-icons/fa";
+import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
+
+import type { AppliedFilter } from "../types/filter-interface";
+import type { homepageLoader } from "../../apis/homepageLoader";
 
 const ProductListPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  // draft filter (filter sementara sebelum user klik button)
   const [selectCategory, setSelectCategory] = useState<string[]>([]);
-  const [selectRange, setSelectRange] = useState<number>(1750);
+  const [selectRange, setSelectRange] = useState<number>(1500);
   const [selectRating, setSelectRating] = useState<number>(0);
+
+  // applied filter (filter yang sudah di otak atik user disemua input)
+  const [appliedFilter, setAppliedFilter] = useState<AppliedFilter | null>(
+    null,
+  );
+
+  // data loader
+  const { products: productsList } = useLoaderData<typeof homepageLoader>();
 
   function handleOpenFilters() {
     setIsOpen(!isOpen);
@@ -15,9 +31,12 @@ const ProductListPage = () => {
 
   /*
   Todo:
-  ? ubah category jadi menggunakan map
-  ? buat filter jadi dinamis, untuk sementara data diambil dengan useEffect dan di tampilkan di console log
-  ? berikan style untuk filter untuk lebar desktop
+  ? tanya chatgpt, masalah saat filter data gambar lama di muat gimana solusinya
+  ? buat versi loading, jika data belum ada maka tampilkan dulu loading nya agar ux nya aman
+  ? berikan style untuk filter & products di lebar desktop
+  ? gunakan pagination / load more, cek yang bagus yang mana, jika data yang tampil lebih dari 8
+  ? ganti untuk hide dan show dari filter nya, untuk di lebar mobile sampai tablet, pakai yang di klik, 
+  ? - di lebar lg baru tampilkan seutuhnya
    */
 
   const handleCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,12 +55,59 @@ const ProductListPage = () => {
     setSelectRange(+value);
   };
 
+  // ini untuk menyimpan hasil filter yang diubah user sebelum user klik button Apply Filters
+  const handleApplyFilter = () => {
+    setAppliedFilter({
+      categories: selectCategory,
+      maxPrice: selectRange,
+      minRating: selectRating,
+    });
+  };
+
+  // ini untuk memfilter data saat user klik button Apply Filters
+  const filteredProducts = productsList.filter((product) => {
+    // kalau user belum klik button Apply Filters, semua product yang tampil
+    if (!appliedFilter) return true;
+
+    // filter category, kalau user pilih kategori DAN kategori product TIDAK ADA di pilihan, buang produknya
+    if (
+      appliedFilter.categories.length > 0 &&
+      !appliedFilter.categories.includes(product.category)
+    )
+      return false;
+
+    // filter price, kalau filter price aktif DAN harga product lebih mahal dari filter price, buang produknya
+    if (
+      appliedFilter.maxPrice !== null &&
+      +product.price > appliedFilter.maxPrice
+    )
+      return false;
+
+    // filter rating, kalau filter rating aktif DAN rating product lebih kecil dari filter rating, buang produknya
+    if (
+      appliedFilter.minRating !== null &&
+      +product.rating < appliedFilter.minRating
+    )
+      return false;
+
+    // kalau lolos semua filter diatas, tampilkan
+    return true;
+  });
+
+  // ini untuk menghapus filter
+  const handleClearFilter = () => {
+    (setAppliedFilter(null),
+      setSelectCategory([]),
+      setSelectRange(1500),
+      setSelectRating(0));
+  };
+
   return (
-    <section className="">
+    <section className="grid gap-4 lg:grid-cols-2 lg:items-start">
       {/* filters */}
       <span
         onClick={handleOpenFilters}
-        className="mb-2 flex cursor-pointer items-center gap-2"
+        className="flex cursor-pointer items-center gap-2"
       >
         <FaFilter className="size-4" /> Customize results
       </span>
@@ -103,13 +169,12 @@ const ProductListPage = () => {
                 onChange={handleRange}
                 value={selectRange}
                 type="range"
-                step={250}
                 max={3000}
-                min={500}
+                min={5}
                 className="w-full"
               />
               <div className="flex items-center justify-between">
-                <p className="">$500</p>
+                <p className="">$5</p>
                 <p className="">${selectRange}</p>
                 <p className="">$3000</p>
               </div>
@@ -132,8 +197,16 @@ const ProductListPage = () => {
 
           {/* apply filters */}
           <div className="grid gap-2">
-            <Button text="Apply Filters" variant="secondary" />
-            <Button text="Clear All" variant="clear" />
+            <Button
+              onClick={handleApplyFilter}
+              text="Apply Filters"
+              variant="secondary"
+            />
+            <Button
+              onClick={handleClearFilter}
+              text="Clear All"
+              variant="clear"
+            />
           </div>
           {/* ./ apply filters */}
         </section>
@@ -142,6 +215,21 @@ const ProductListPage = () => {
       {/* ./ filters */}
 
       {/* all products */}
+      <section className="space-y-4">
+        {/* bagian h1 ini nanti diganti isinya dengan category dari data API. */}
+        <div className="space-y-4">
+          <h1 className="text-4xl">Laptops</h1>
+          <h4 className="text-sm lg:text-base">
+            Find the best products that suit your needs.
+          </h4>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {filteredProducts.map((product, index) => {
+            return <ProductCard product={product} key={index + 1} />;
+          })}
+        </div>
+      </section>
       {/* ./ all products */}
     </section>
   );
