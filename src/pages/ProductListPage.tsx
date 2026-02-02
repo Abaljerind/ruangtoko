@@ -31,11 +31,9 @@ const ProductListPage = () => {
 
   /*
   Todo:
-  ? berikan style untuk filter & products di lebar desktop
+  ? benerin filter kategori biar text dan value nya sama dengan data dari API
   ? gunakan pagination / load more, cek yang bagus yang mana, jika data yang tampil lebih dari 8
-  ? ganti untuk hide dan show dari filter nya, untuk di lebar mobile sampai tablet, pakai yang di klik, 
-  ? - di lebar lg baru tampilkan seutuhnya
-  ? tambah auto close isOpen saat klik apply filters
+  ? buat sorting data berdasarkan nama, harga dan rating nya
    */
 
   const handleCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,6 +52,15 @@ const ProductListPage = () => {
     setSelectRange(+value);
   };
 
+  function closeFilters() {
+    const isDesktop = window.innerWidth >= 1020;
+
+    if (!isDesktop) {
+      setIsOpen(false);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
   // ini untuk menyimpan hasil filter yang diubah user sebelum user klik button Apply Filters
   const handleApplyFilter = () => {
     setAppliedFilter({
@@ -61,6 +68,8 @@ const ProductListPage = () => {
       maxPrice: selectRange,
       minRating: selectRating,
     });
+
+    closeFilters();
   };
 
   // ini untuk memfilter data saat user klik button Apply Filters
@@ -101,6 +110,8 @@ const ProductListPage = () => {
       setSelectCategory([]),
       setSelectRange(1500),
       setSelectRating(0));
+
+    closeFilters();
   };
 
   return (
@@ -113,7 +124,7 @@ const ProductListPage = () => {
         >
           <FaFilter className="size-4" /> Customize results
         </div>
-
+        <h2 className="hidden text-2xl lg:block">Filter Results</h2>
         <section
           className={`${isOpen ? "block" : "hidden"} space-y-4 lg:block`}
         >
