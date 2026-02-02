@@ -3,7 +3,7 @@ import Button from "../components/Button";
 import ProductCard from "../components/ProductCard";
 
 import { FaFilter } from "react-icons/fa";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 
 import type { AppliedFilter } from "../types/filter-interface";
@@ -31,8 +31,6 @@ const ProductListPage = () => {
 
   /*
   Todo:
-  ? tanya chatgpt, masalah saat filter data gambar lama di muat gimana solusinya
-  ? buat versi loading, jika data belum ada maka tampilkan dulu loading nya agar ux nya aman
   ? berikan style untuk filter & products di lebar desktop
   ? gunakan pagination / load more, cek yang bagus yang mana, jika data yang tampil lebih dari 8
   ? ganti untuk hide dan show dari filter nya, untuk di lebar mobile sampai tablet, pakai yang di klik, 
@@ -65,34 +63,36 @@ const ProductListPage = () => {
   };
 
   // ini untuk memfilter data saat user klik button Apply Filters
-  const filteredProducts = productsList.filter((product) => {
-    // kalau user belum klik button Apply Filters, semua product yang tampil
-    if (!appliedFilter) return true;
+  const filteredProducts = useMemo(() => {
+    return productsList.filter((product) => {
+      // kalau user belum klik button Apply Filters, semua product yang tampil
+      if (!appliedFilter) return true;
 
-    // filter category, kalau user pilih kategori DAN kategori product TIDAK ADA di pilihan, buang produknya
-    if (
-      appliedFilter.categories.length > 0 &&
-      !appliedFilter.categories.includes(product.category)
-    )
-      return false;
+      // filter category, kalau user pilih kategori DAN kategori product TIDAK ADA di pilihan, buang produknya
+      if (
+        appliedFilter.categories.length > 0 &&
+        !appliedFilter.categories.includes(product.category)
+      )
+        return false;
 
-    // filter price, kalau filter price aktif DAN harga product lebih mahal dari filter price, buang produknya
-    if (
-      appliedFilter.maxPrice !== null &&
-      +product.price > appliedFilter.maxPrice
-    )
-      return false;
+      // filter price, kalau filter price aktif DAN harga product lebih mahal dari filter price, buang produknya
+      if (
+        appliedFilter.maxPrice !== null &&
+        +product.price > appliedFilter.maxPrice
+      )
+        return false;
 
-    // filter rating, kalau filter rating aktif DAN rating product lebih kecil dari filter rating, buang produknya
-    if (
-      appliedFilter.minRating !== null &&
-      +product.rating < appliedFilter.minRating
-    )
-      return false;
+      // filter rating, kalau filter rating aktif DAN rating product lebih kecil dari filter rating, buang produknya
+      if (
+        appliedFilter.minRating !== null &&
+        +product.rating < appliedFilter.minRating
+      )
+        return false;
 
-    // kalau lolos semua filter diatas, tampilkan
-    return true;
-  });
+      // kalau lolos semua filter diatas, tampilkan
+      return true;
+    });
+  }, [productsList, appliedFilter]);
 
   // ini untuk menghapus filter
   const handleClearFilter = () => {
