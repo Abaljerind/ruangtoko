@@ -35,6 +35,7 @@ const ProductListPage = () => {
   ? gunakan pagination / load more, cek yang bagus yang mana, jika data yang tampil lebih dari 8
   ? ganti untuk hide dan show dari filter nya, untuk di lebar mobile sampai tablet, pakai yang di klik, 
   ? - di lebar lg baru tampilkan seutuhnya
+  ? tambah auto close isOpen saat klik apply filters
    */
 
   const handleCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,16 +104,19 @@ const ProductListPage = () => {
   };
 
   return (
-    <section className="grid gap-4 lg:grid-cols-2 lg:items-start">
+    <section className="grid gap-4 lg:flex lg:items-start lg:gap-6">
       {/* filters */}
-      <span
-        onClick={handleOpenFilters}
-        className="flex cursor-pointer items-center gap-2"
-      >
-        <FaFilter className="size-4" /> Customize results
-      </span>
-      {isOpen && (
-        <section className="space-y-4">
+      <section className="space-y-4 lg:w-2/5">
+        <div
+          onClick={handleOpenFilters}
+          className="flex cursor-pointer items-center gap-2 lg:hidden"
+        >
+          <FaFilter className="size-4" /> Customize results
+        </div>
+
+        <section
+          className={`${isOpen ? "block" : "hidden"} space-y-4 lg:block`}
+        >
           {/* category */}
           <div className="space-y-2 rounded-md bg-white p-4 shadow-sm">
             <h3 className="">Category</h3>
@@ -210,12 +214,12 @@ const ProductListPage = () => {
           </div>
           {/* ./ apply filters */}
         </section>
-      )}
+      </section>
 
       {/* ./ filters */}
 
       {/* all products */}
-      <section className="space-y-4">
+      <section className="space-y-4 lg:w-full">
         {/* bagian h1 ini nanti diganti isinya dengan category dari data API. */}
         <div className="space-y-4">
           <h1 className="text-4xl">Laptops</h1>
