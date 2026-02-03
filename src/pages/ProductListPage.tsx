@@ -8,9 +8,11 @@ import { useLoaderData } from "react-router-dom";
 
 import type { AppliedFilter } from "../types/filter-interface";
 import type { homepageLoader } from "../../apis/homepageLoader";
+import type { ProductType } from "../types/product-interface";
 
 const ProductListPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen2, setIsOpen2] = useState<boolean>(false);
 
   // draft filter (filter sementara sebelum user klik button)
   const [selectCategory, setSelectCategory] = useState<string[]>([]);
@@ -22,13 +24,20 @@ const ProductListPage = () => {
     null,
   );
 
+  // untuk menyimpan sort apa yang sedang dipilih user
+  const [selectSort, setSelectSort] = useState<string>("Recommendation");
+
   // data loader
   const { products: productsList } = useLoaderData<typeof homepageLoader>();
 
-  function handleOpenFilters() {
-    setIsOpen(!isOpen);
-  }
-
+  // array untuk mapping sort
+  const sorts: string[] = [
+    "Recommendation",
+    "Name (A - Z)",
+    "Name (Z - A)",
+    "Price (Low - High)",
+    "Price (High - Low)",
+  ];
   /*
   Todo:
   ? benerin filter kategori biar text dan value nya sama dengan data dari API
@@ -73,7 +82,7 @@ const ProductListPage = () => {
   };
 
   // ini untuk memfilter data saat user klik button Apply Filters
-  const filteredProducts = useMemo(() => {
+  const filteredProducts: ProductType[] = useMemo(() => {
     return productsList.filter((product) => {
       // kalau user belum klik button Apply Filters, semua product yang tampil
       if (!appliedFilter) return true;
@@ -88,14 +97,14 @@ const ProductListPage = () => {
       // filter price, kalau filter price aktif DAN harga product lebih mahal dari filter price, buang produknya
       if (
         appliedFilter.maxPrice !== null &&
-        +product.price > appliedFilter.maxPrice
+        product.price > appliedFilter.maxPrice
       )
         return false;
 
       // filter rating, kalau filter rating aktif DAN rating product lebih kecil dari filter rating, buang produknya
       if (
         appliedFilter.minRating !== null &&
-        +product.rating < appliedFilter.minRating
+        product.rating < appliedFilter.minRating
       )
         return false;
 
@@ -103,6 +112,24 @@ const ProductListPage = () => {
       return true;
     });
   }, [productsList, appliedFilter]);
+
+  // ini untuk sorting data
+  const sortedProducts: ProductType[] = useMemo(() => {
+    return [...filteredProducts].sort((a, b) => {
+      switch (selectSort) {
+        case "Name (A - Z)":
+          return a.title.localeCompare(b.title);
+        case "Name (Z - A)":
+          return b.title.localeCompare(a.title);
+        case "Price (Low - High)":
+          return a.price - b.price;
+        case "Price (High - Low)":
+          return b.price - a.price;
+        default:
+          return 0;
+      }
+    });
+  }, [filteredProducts, selectSort]);
 
   // ini untuk menghapus filter
   const handleClearFilter = () => {
@@ -112,6 +139,20 @@ const ProductListPage = () => {
       setSelectRating(0));
 
     closeFilters();
+  };
+
+  const handleToggleDown = () => {
+    setIsOpen2(!isOpen2);
+  };
+
+  const handleOpenFilters = () => {
+    setIsOpen(!isOpen);
+  };
+
+  // untuk mengganti teks pada button sort by:
+  const handleSelectSort = (sort: string) => {
+    setSelectSort(sort);
+    setIsOpen2(false);
   };
 
   return (
@@ -233,14 +274,44 @@ const ProductListPage = () => {
       <section className="space-y-4 lg:w-full">
         {/* bagian h1 ini nanti diganti isinya dengan category dari data API. */}
         <div className="space-y-4">
-          <h1 className="text-4xl">Laptops</h1>
-          <h4 className="text-sm lg:text-base">
-            Find the best products that suit your needs.
-          </h4>
+          <div className="space-y-4">
+            <h1 className="text-4xl">Laptops</h1>
+            <h4 className="text-sm lg:text-base">
+              Find the best products that suit your needs.
+            </h4>
+          </div>
+
+          {/* sort input */}
+          <div className="relative w-fit">
+            <button
+              type="button"
+              onClick={handleToggleDown}
+              className="cursor-pointer rounded-lg bg-white px-3 py-1.5 text-sm shadow hover:bg-gray-200"
+            >
+              Sort by: {selectSort}
+            </button>
+
+            {isOpen2 && (
+              <ul className="absolute left-0 mt-2 w-52 rounded-lg bg-white py-1 text-sm shadow">
+                {sorts.map((sort, index) => {
+                  return (
+                    <li
+                      onClick={() => handleSelectSort(sort)}
+                      className="cursor-pointer px-4 py-2 hover:bg-gray-100"
+                      key={index + 1}
+                    >
+                      {sort}
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+          {/* ./ sort input */}
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {filteredProducts.map((product, index) => {
+          {sortedProducts.map((product, index) => {
             return <ProductCard product={product} key={index + 1} />;
           })}
         </div>
