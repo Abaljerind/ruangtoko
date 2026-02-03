@@ -30,6 +30,11 @@ const ProductListPage = () => {
   // data loader
   const { products: productsList } = useLoaderData<typeof homepageLoader>();
 
+  // array untuk category
+  const categories: string[] = [
+    ...new Set(productsList.map((item) => item.category)),
+  ];
+
   // array untuk mapping sort
   const sorts: string[] = [
     "Recommendation",
@@ -40,9 +45,7 @@ const ProductListPage = () => {
   ];
   /*
   Todo:
-  ? benerin filter kategori biar text dan value nya sama dengan data dari API
   ? gunakan pagination / load more, cek yang bagus yang mana, jika data yang tampil lebih dari 8
-  ? buat sorting data berdasarkan nama, harga dan rating nya
    */
 
   const handleCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -173,46 +176,22 @@ const ProductListPage = () => {
           <div className="space-y-2 rounded-md bg-white p-4 shadow-sm">
             <h3 className="">Category</h3>
             <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  name="laptops"
-                  onChange={handleCategory}
-                  checked={selectCategory.includes("laptops")}
-                  className="size-3.5"
-                />
-                <p className="">Laptops</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  name="smartphones"
-                  onChange={handleCategory}
-                  checked={selectCategory.includes("smartphones")}
-                  className="size-3.5"
-                />
-                <p className="">Smartphones</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  onChange={handleCategory}
-                  checked={selectCategory.includes("headphones")}
-                  name="headphones"
-                  className="size-3.5"
-                />
-                <p className="">Headphones</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  name="accessories"
-                  onChange={handleCategory}
-                  checked={selectCategory.includes("accessories")}
-                  className="size-3.5"
-                />
-                <p className="">Accessories</p>
-              </div>
+              {categories.map((category, index) => {
+                const bigCategory =
+                  category.charAt(0).toUpperCase() + category.slice(1);
+                return (
+                  <div className="flex items-center gap-2" key={index + 1}>
+                    <input
+                      type="checkbox"
+                      name={category}
+                      onChange={handleCategory}
+                      checked={selectCategory.includes(category)}
+                      className="size-3.5"
+                    />
+                    <p className="">{bigCategory}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
           {/* ./ category */}
@@ -272,10 +251,9 @@ const ProductListPage = () => {
 
       {/* all products */}
       <section className="space-y-4 lg:w-full">
-        {/* bagian h1 ini nanti diganti isinya dengan category dari data API. */}
         <div className="space-y-4">
           <div className="space-y-4">
-            <h1 className="text-4xl">Laptops</h1>
+            <h1 className="text-4xl">All Products</h1>
             <h4 className="text-sm lg:text-base">
               Find the best products that suit your needs.
             </h4>
