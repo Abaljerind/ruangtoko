@@ -134,6 +134,9 @@ const ProductListPage = () => {
     });
   }, [filteredProducts, selectSort]);
 
+  // hitung total products
+  const totalProducts = sortedProducts.length;
+
   // ini untuk menghapus filter
   const handleClearFilter = () => {
     (setAppliedFilter(null),
@@ -260,14 +263,21 @@ const ProductListPage = () => {
           </div>
 
           {/* sort input */}
-          <div className="relative w-fit">
-            <button
-              type="button"
-              onClick={handleToggleDown}
-              className="cursor-pointer rounded-lg bg-white px-3 py-1.5 text-sm shadow hover:bg-gray-200"
-            >
-              Sort by: {selectSort}
-            </button>
+          <div className="relative w-full">
+            <div className="flex items-center justify-between gap-4">
+              <button
+                type="button"
+                onClick={handleToggleDown}
+                className="cursor-pointer rounded-lg bg-white px-3 py-1.5 text-sm shadow hover:bg-gray-200"
+              >
+                Sort by: {selectSort}
+              </button>
+
+              <p className="text-sm lg:text-base">
+                Total products:{" "}
+                <span className="font-semibold">{totalProducts}</span>
+              </p>
+            </div>
 
             {isOpen2 && (
               <ul className="absolute left-0 mt-2 w-52 rounded-lg bg-white py-1 text-sm shadow">
