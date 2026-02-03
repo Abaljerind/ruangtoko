@@ -1,11 +1,19 @@
+export interface ReviewType {
+  comment: string;
+  date: string;
+  rating: number;
+  reviewerEmail: string;
+  reviewerName: string;
+}
+
 export interface ProductType {
   title: string;
-  rating: string;
-  price: string;
-  images: string;
+  rating: number;
+  price: number;
+  images: string[];
   brand: string;
   category: string;
-  reviews: [];
+  reviews: ReviewType[];
   description: string;
 }
 
