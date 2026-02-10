@@ -27,7 +27,13 @@ const ProductListPage = () => {
   // untuk menyimpan sort apa yang sedang dipilih user
   const [selectSort, setSelectSort] = useState<string>("Recommendation");
 
-  // data loader
+  // jumlah item yang akan ditampilkan
+  const ITEMS_PER_PAGE: number = 6;
+
+  // untuk menghitung jumlah item yang terlihat
+  const [visibleCount, setVisibleCount] = useState<number>(ITEMS_PER_PAGE);
+
+  // data dari loader
   const { products: productsList } = useLoaderData<typeof homepageLoader>();
 
   // array untuk category
@@ -43,10 +49,6 @@ const ProductListPage = () => {
     "Price (Low - High)",
     "Price (High - Low)",
   ];
-  /*
-  Todo:
-  ? gunakan pagination / load more, cek yang bagus yang mana, jika data yang tampil lebih dari 8
-   */
 
   const handleCategory = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target;
@@ -79,6 +81,7 @@ const ProductListPage = () => {
       categories: selectCategory,
       maxPrice: selectRange,
       minRating: selectRating,
+      setVisibleItem: visibleCount,
     });
 
     closeFilters();
@@ -142,7 +145,8 @@ const ProductListPage = () => {
     (setAppliedFilter(null),
       setSelectCategory([]),
       setSelectRange(1500),
-      setSelectRating(0));
+      setSelectRating(0),
+      setVisibleCount(ITEMS_PER_PAGE));
 
     closeFilters();
   };
@@ -159,6 +163,11 @@ const ProductListPage = () => {
   const handleSelectSort = (sort: string) => {
     setSelectSort(sort);
     setIsOpen2(false);
+  };
+
+  // button load more
+  const handleLoadMore = () => {
+    setVisibleCount((prevState) => prevState + ITEMS_PER_PAGE);
   };
 
   return (
@@ -299,10 +308,23 @@ const ProductListPage = () => {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {sortedProducts.map((product, index) => {
+          {sortedProducts.slice(0, visibleCount).map((product, index) => {
             return <ProductCard product={product} key={index + 1} />;
           })}
         </div>
+
+        {/* button load more */}
+
+        {visibleCount < sortedProducts.length && (
+          <button
+            onClick={handleLoadMore}
+            className="mt-6 cursor-pointer rounded-lg bg-gray-300 px-4 py-2 font-semibold text-slate-600"
+          >
+            Load more
+          </button>
+        )}
+
+        {/* ./ button load more */}
       </section>
       {/* ./ all products */}
     </section>
