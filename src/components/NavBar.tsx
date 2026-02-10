@@ -1,16 +1,8 @@
 import { FiShoppingCart } from "react-icons/fi";
-import programmer from "../assets/tired-programmer.svg";
 import { FaRegUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
 const NavBar = () => {
-  const [isClick, setIsClick] = useState<boolean>(false);
-
-  const handleUserIconClick = () => {
-    setIsClick(!isClick);
-  };
-
   return (
     <>
       {/* Desktop NavBar */}
@@ -73,43 +65,13 @@ const NavBar = () => {
               <span className="text-xs font-bold text-white md:text-sm">3</span>
             </div>
           </div>
-          <FaRegUser
-            className="size-6 cursor-pointer md:size-7"
-            onClick={handleUserIconClick}
-          />
+          <Link to={"/account"}>
+            <FaRegUser className="size-6 cursor-pointer md:size-7" />
+          </Link>
         </div>
         {/* ./ Icon Cart & Icon User */}
       </nav>
       {/* Desktop NavBar */}
-
-      {/* modal box for account page */}
-      {isClick && (
-        <div className="fixed inset-0 z-40 bg-black/60">
-          <div className="absolute top-24 left-1/2 flex w-4/5 max-w-sm -translate-x-1/2 flex-col items-center justify-center gap-3 rounded-lg bg-white p-4 text-center shadow-md md:top-1/6 md:w-2/5">
-            <img
-              src={programmer}
-              alt="tired programmer illustration"
-              className="w-3/4"
-            />
-            <div className="space-y-3">
-              <h2 className="font-poppins text-lg font-medium underline">
-                Feature Not Available
-              </h2>
-              <p className="text-sm text-gray-600">
-                User accounts are not supported at the moment. Please check back
-                later for updates.
-              </p>
-              <button
-                className="bg-primary w-full cursor-pointer rounded-lg py-2 text-center text-white hover:bg-blue-700"
-                onClick={handleUserIconClick}
-              >
-                Understood
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-      {/* ./ modal box for account page */}
     </>
   );
 };
