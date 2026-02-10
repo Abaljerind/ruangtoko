@@ -1,5 +1,4 @@
 import { FiShoppingCart } from "react-icons/fi";
-import Logo from "../assets/logo-light-mode.png";
 import programmer from "../assets/tired-programmer.svg";
 import { FaRegUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -20,13 +19,12 @@ const NavBar = () => {
         <div className="flex items-center gap-10">
           {/* Logo */}
           <div>
-            <img
-              src={Logo}
-              alt="RuangToko Logo"
-              width={160}
-              height={80}
-              className="cursor-pointer"
-            />
+            <Link
+              to={"/"}
+              className="cursor-pointer text-2xl font-bold text-sky-500 lg:text-3xl"
+            >
+              RuangToko
+            </Link>
           </div>
           {/* ./ Logo */}
 

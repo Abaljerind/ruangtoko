@@ -1,6 +1,6 @@
 import { FaFacebook, FaInstagram, FaTiktok, FaYoutube } from "react-icons/fa";
-import Logo from "../assets/logo-light-mode.png";
 import Copyrights from "./Copyrights";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -9,15 +9,14 @@ const Footer = () => {
         {/* Left Side */}
         <div className="flex-column lg:basis-1/2 lg:flex-row lg:items-start lg:gap-4">
           {/* Logo & motto */}
-          <div className="space-y-1.5 lg:basis-3/4">
-            <img
-              src={Logo}
-              alt="RuangToko Logo"
-              width={160}
-              height={80}
-              className="mx-auto cursor-pointer lg:mx-0"
-            />
-            <p className="font-poppins text-sm font-medium">
+          <div className="lg:basis-3/4">
+            <Link
+              to={"/"}
+              className="cursor-pointer text-2xl font-bold text-sky-500 lg:text-3xl"
+            >
+              RuangToko
+            </Link>
+            <p className="font-poppins mt-4 text-sm font-medium">
               Your one-stop shop for everything you need.
             </p>
           </div>
