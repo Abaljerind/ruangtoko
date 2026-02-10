@@ -13,7 +13,7 @@ const NavBar = () => {
           <div>
             <Link
               to={"/"}
-              className="cursor-pointer text-2xl font-bold text-sky-500 lg:text-3xl"
+              className="text-primary cursor-pointer text-2xl font-bold lg:text-3xl"
             >
               RuangToko
             </Link>
