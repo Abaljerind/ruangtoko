@@ -1,8 +1,18 @@
 import { FiShoppingCart } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
+import { RiMenu3Line } from "react-icons/ri";
+import { IoClose } from "react-icons/io5";
+
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const NavBar = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const handleNavMobile = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <>
       {/* Desktop NavBar */}
@@ -39,24 +49,57 @@ const NavBar = () => {
 
         {/* Mobile - NavItem | Bottom Section */}
         <div className="relative md:hidden">
-          <ul className="bg-primary fixed right-1/2 bottom-0 flex w-full translate-x-1/2 items-center justify-evenly gap-4 border-t border-gray-400/40 py-4 font-medium text-white md:border-0 md:border-none">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/products">Products</Link>
-            </li>
-            <li>
-              <Link to="/order">Order History</Link>
-            </li>
-          </ul>
+          <RiMenu3Line onClick={handleNavMobile} className="size-6" />
+
+          {/* navbar menu */}
+          {isOpen && (
+            <div className="fixed inset-0 z-10 flex h-screen w-full items-center justify-center bg-black/40 backdrop-blur-sm">
+              <IoClose
+                onClick={handleNavMobile}
+                className="absolute top-4 right-4 size-8 text-black"
+              />
+              <ul className="flex flex-col items-center justify-center gap-6 text-lg font-medium text-black">
+                <li className="tracking-widest">
+                  <Link to="/" onClick={handleNavMobile}>
+                    Home
+                  </Link>
+                </li>
+                <li className="tracking-widest">
+                  <Link to="/products" onClick={handleNavMobile}>
+                    Products
+                  </Link>
+                </li>
+                <li className="tracking-widest">
+                  <Link to="/order" onClick={handleNavMobile}>
+                    Order History
+                  </Link>
+                </li>
+                <li className="relative">
+                  <Link to="/cart" onClick={handleNavMobile}>
+                    <FiShoppingCart className="size-6 md:size-7" />
+                  </Link>
+                  <div className="bg-primary absolute -top-3 -right-4 flex size-6 items-center justify-center rounded-full">
+                    <span className="text-sm font-bold text-white md:text-sm">
+                      3
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <Link to={"/account"} onClick={handleNavMobile}>
+                    <FaRegUser className="size-6 cursor-pointer md:size-7" />
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
+        {/* ./ navbar menu */}
         {/* ./ Mobile - NavItem | Bottom Section */}
 
         {/* Logo + NavItem */}
 
-        {/* Icon Cart & Icon User */}
-        <div className="mt-1.5 flex items-center gap-4 md:gap-8">
+        {/* Icon Cart & Icon User for desktop */}
+        <div className="mt-1.5 hidden items-center gap-4 md:flex md:gap-8">
           <div className="relative p-2.5">
             <Link to="/cart">
               <FiShoppingCart className="size-6 md:size-7" />
@@ -69,7 +112,7 @@ const NavBar = () => {
             <FaRegUser className="size-6 cursor-pointer md:size-7" />
           </Link>
         </div>
-        {/* ./ Icon Cart & Icon User */}
+        {/* ./ Icon Cart & Icon User for desktop */}
       </nav>
       {/* Desktop NavBar */}
     </>
