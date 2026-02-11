@@ -4,19 +4,32 @@ import { RiMenu3Line } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
 
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
 
   const handleNavMobile = () => {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <>
       {/* Desktop NavBar */}
-      <nav className="font-poppins flex items-center justify-between border-b border-gray-400/40 p-2 pr-3 md:p-4 lg:px-24">
+      <nav
+        className={`${isScrolled && !isOpen ? "bg-white/20 backdrop-blur-lg" : "bg-transparent backdrop-blur-none"} font-poppins sticky top-0 z-20 flex items-center justify-between border-b border-gray-400/40 p-2 pr-3 transition-colors duration-300 md:p-4 lg:px-24`}
+      >
         {/* Logo + NavItem */}
         <div className="flex items-center gap-10">
           {/* Logo */}
@@ -53,12 +66,12 @@ const NavBar = () => {
 
           {/* navbar menu */}
           {isOpen && (
-            <div className="fixed inset-0 z-10 flex h-screen w-full items-center justify-center bg-black/40 backdrop-blur-sm">
+            <div className="fixed inset-0 z-50 flex h-screen w-full items-center justify-center bg-black/60 backdrop-blur-sm">
               <IoClose
                 onClick={handleNavMobile}
-                className="absolute top-4 right-4 size-8 text-black"
+                className="absolute top-4 right-4 size-8 text-white"
               />
-              <ul className="flex flex-col items-center justify-center gap-6 text-lg font-medium text-black">
+              <ul className="flex flex-col items-center justify-center gap-6 text-lg font-medium text-white">
                 <li className="tracking-widest">
                   <Link to="/" onClick={handleNavMobile}>
                     Home
@@ -92,8 +105,8 @@ const NavBar = () => {
               </ul>
             </div>
           )}
+          {/* ./ navbar menu */}
         </div>
-        {/* ./ navbar menu */}
         {/* ./ Mobile - NavItem | Bottom Section */}
 
         {/* Logo + NavItem */}
