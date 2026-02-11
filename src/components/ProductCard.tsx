@@ -2,6 +2,7 @@ import { LiaCartPlusSolid } from "react-icons/lia";
 import type { ProductType } from "../types/product-interface";
 import { PiStarFill } from "react-icons/pi";
 import Button from "./Button";
+import { Link } from "react-router-dom";
 
 type Props = {
   product: ProductType;
@@ -9,7 +10,10 @@ type Props = {
 
 const ProductCard = ({ product }: Props) => {
   return (
-    <div className="mx-auto w-full max-w-87.5 space-y-2.5 rounded-xl bg-white text-sm xl:text-base">
+    <Link
+      to={`/products/${product.id}`}
+      className="mx-auto w-full max-w-87.5 space-y-2.5 rounded-xl bg-white text-sm xl:text-base"
+    >
       <div className="flex h-40 items-center justify-center">
         <img
           src={product.images[0]}
@@ -44,7 +48,7 @@ const ProductCard = ({ product }: Props) => {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
