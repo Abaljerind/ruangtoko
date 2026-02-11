@@ -7,7 +7,10 @@ import CartPage from "../pages/CartPage";
 import ErrorPage from "../pages/ErrorPage";
 
 import { homepageLoader as homeLoader } from "../../apis/homepageLoader";
+import { productDetailLoader as productLoader } from "../../apis/productDetailLoader";
+
 import AccountPage from "../pages/AccountPage";
+import ProductDetailsPage from "../pages/ProductDetailsPage";
 
 const routes: RouteObject[] = [
   {
@@ -24,6 +27,11 @@ const routes: RouteObject[] = [
         path: "/products",
         element: <ProductListPage />,
         loader: homeLoader,
+      },
+      {
+        path: "/products/:id",
+        element: <ProductDetailsPage />,
+        loader: productLoader,
       },
       {
         path: "/order",
