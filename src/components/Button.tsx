@@ -1,26 +1,35 @@
-type Variant = "primary" | "secondary" | "card" | "cardIcon" | "clear";
+type Variant =
+  | "primary"
+  | "secondary"
+  | "card"
+  | "cardIcon"
+  | "clear"
+  | "cardWithIcon";
 
 type Props = {
   text: string | React.ReactNode;
+  icon?: React.ReactNode;
   variant?: Variant;
   onClick?: () => void;
 };
 
-const Button = ({ text, variant = "primary", onClick }: Props) => {
+const Button = ({ text, variant = "primary", onClick, icon }: Props) => {
   const baseStyle: string =
-    "cursor-pointer group rounded-lg text-center transition font-semibold text-sm shadow-md lg:rounded-xl";
+    "group cursor-pointer rounded-lg text-center text-sm font-semibold shadow-md transition lg:rounded-xl";
 
   const variants: Record<Variant, string> = {
-    primary: "py-2.5 px-4 text-primary bg-white hover:bg-white/90",
-    secondary: "py-2.5 px-4 bg-blue-600 text-white",
-    card: "py-2.5 px-4 bg-primary text-white hover:bg-primary/90",
-    cardIcon: "p-2 bg-blue-200 text-blue-600 hover:bg-primary/90",
-    clear: "py-2.5 px-4 bg-gray-300 w-full text-black",
+    primary: "text-primary bg-white px-4 py-2.5 hover:bg-white/90",
+    secondary: "bg-blue-600 px-4 py-2.5 text-white",
+    card: "bg-primary hover:bg-primary/90 px-4 py-2.5 text-white",
+    cardIcon: "hover:bg-primary/90 bg-blue-200 p-2 text-blue-600",
+    cardWithIcon:
+      "bg-primary hover:bg-primary/90 mx-auto flex w-full items-center justify-center gap-2 p-2 text-white",
+    clear: "w-full bg-gray-300 px-4 py-2.5 text-black",
   };
 
   return (
     <button onClick={onClick} className={`${baseStyle} ${variants[variant]}`}>
-      {text}
+      {icon} {text}
     </button>
   );
 };
