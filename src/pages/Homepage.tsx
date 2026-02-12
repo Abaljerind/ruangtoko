@@ -4,7 +4,7 @@ import { MdSupportAgent } from "react-icons/md";
 import { useState } from "react";
 import type { ProductType } from "../types/product-interface";
 import ProductCard from "../components/ProductCard";
-import { useLoaderData } from "react-router-dom";
+import { ScrollRestoration, useLoaderData } from "react-router-dom";
 import { homepageLoader } from "../../apis/homepageLoader";
 import Button from "../components/Button";
 
@@ -32,6 +32,7 @@ const Homepage = () => {
   return (
     <>
       <section className="">
+        <ScrollRestoration />
         {/* Hero Section */}
         <section className="flex flex-col gap-8 rounded-2xl bg-linear-to-r/hsl from-blue-500 to-sky-400 p-6 md:flex-row md:gap-0 lg:gap-20 lg:rounded-3xl lg:px-12">
           {/* Text & description */}

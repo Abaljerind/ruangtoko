@@ -1,8 +1,10 @@
+import { ScrollRestoration } from "react-router-dom";
 import myself from "../assets/myself.jpg";
 
 const AccountPage = () => {
   return (
     <section className="mx-auto max-w-lg space-y-4 lg:space-y-8">
+      <ScrollRestoration />
       <h1 className="text-center font-medium text-sky-500 lg:text-2xl">
         My Account
       </h1>
