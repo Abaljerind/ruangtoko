@@ -1,5 +1,5 @@
 import { Link, ScrollRestoration, useLoaderData } from "react-router-dom";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 
 import Button from "../components/Button";
 import ProductCard from "../components/ProductCard";
@@ -12,10 +12,25 @@ import { FaCircleArrowLeft, FaCircleArrowRight } from "react-icons/fa6";
 
 const ProductDetailsPage = () => {
   const { product, recommended } = useLoaderData() as ProductDetailData;
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const randomProducts = useMemo(() => {
     return [...recommended].sort(() => Math.random() - 0.5).slice(0, 4);
   }, [recommended]);
+
+  const scrollLeft = () => {
+    scrollRef.current?.scrollBy({
+      left: -200,
+      behavior: "smooth",
+    });
+  };
+
+  const scrollRight = () => {
+    scrollRef.current?.scrollBy({
+      left: 200,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <section className="space-y-4 pb-8 md:pt-4">
@@ -95,13 +110,22 @@ const ProductDetailsPage = () => {
           </h1>
 
           <div className="flex items-center gap-2 lg:hidden">
-            <FaCircleArrowLeft className="size-6 cursor-pointer" />
-            <FaCircleArrowRight className="size-6 cursor-pointer" />
+            <FaCircleArrowLeft
+              onClick={scrollLeft}
+              className="size-6 cursor-pointer"
+            />
+            <FaCircleArrowRight
+              onClick={scrollRight}
+              className="size-6 cursor-pointer"
+            />
           </div>
         </div>
 
         {/* recommended product list */}
-        <div className="scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth lg:grid lg:snap-none lg:grid-cols-4 lg:gap-6 lg:overflow-visible">
+        <div
+          ref={scrollRef}
+          className="scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth lg:grid lg:snap-none lg:grid-cols-4 lg:gap-6 lg:overflow-visible"
+        >
           {randomProducts.map((product) => {
             return (
               <div
