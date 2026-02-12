@@ -15,7 +15,7 @@ const ProductDetailsPage = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const randomProducts = useMemo(() => {
-    return [...recommended].sort(() => Math.random() - 0.5).slice(0, 4);
+    return [...recommended].sort(() => Math.random() - 0.5).slice(0, 8);
   }, [recommended]);
 
   const scrollLeft = () => {
@@ -103,13 +103,17 @@ const ProductDetailsPage = () => {
       {/* ./ product */}
 
       {/* recommended product */}
-      <div className="mt-12 space-y-8 lg:mt-16">
+      <div
+        className={`mt-12 space-y-8 lg:mt-16 ${randomProducts.length > 4 ? "" : "mx-auto max-w-[1078px]"}`}
+      >
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold tracking-wide">
             You Might Also Like
           </h1>
 
-          <div className="flex items-center gap-2 lg:hidden">
+          <div
+            className={`flex items-center gap-2 ${randomProducts.length > 4 ? "" : "xl:hidden"}`}
+          >
             <FaCircleArrowLeft
               onClick={scrollLeft}
               className="size-6 cursor-pointer"
@@ -124,13 +128,13 @@ const ProductDetailsPage = () => {
         {/* recommended product list */}
         <div
           ref={scrollRef}
-          className="scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth lg:grid lg:snap-none lg:grid-cols-4 lg:gap-6 lg:overflow-visible"
+          className="scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth"
         >
           {randomProducts.map((product) => {
             return (
               <div
                 key={product.id}
-                className="w-64 shrink-0 snap-start rounded-xl bg-white lg:w-auto"
+                className="w-64 shrink-0 snap-start rounded-xl bg-white"
               >
                 <ProductCard product={product} />
               </div>
