@@ -12,7 +12,7 @@ const ProductCard = ({ product }: Props) => {
   return (
     <Link
       to={`/products/${product.id}`}
-      className="mx-auto w-full max-w-87.5 space-y-2.5 rounded-xl bg-white text-sm xl:text-base"
+      className="w-full space-y-2.5 rounded-xl bg-white text-sm xl:text-base"
     >
       <div className="flex h-40 items-center justify-center">
         <img
