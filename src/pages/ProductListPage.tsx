@@ -28,7 +28,7 @@ const ProductListPage = () => {
   const [selectSort, setSelectSort] = useState<string>("Recommendation");
 
   // jumlah item yang akan ditampilkan
-  const ITEMS_PER_PAGE: number = 6;
+  const ITEMS_PER_PAGE: number = 10;
 
   // untuk menghitung jumlah item yang terlihat
   const [visibleCount, setVisibleCount] = useState<number>(ITEMS_PER_PAGE);
